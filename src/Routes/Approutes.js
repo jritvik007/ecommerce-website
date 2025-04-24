@@ -1,7 +1,7 @@
 import React from 'react'
 import DashboardPage from '../Pages/DashboardPage'
 import CartPage from '../Pages/CartPage'
-import Categories from '../Pages/Categories'
+import Categories from '../Pages/CategoriesPage'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import ProductsPage from '../Pages/ProductsPage'
 
