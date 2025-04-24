@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { AppBar, Box, CssBaseline, Drawer, Toolbar, Typography, IconButton, List, ListItem, ListItemIcon, ListItemText, Grid,
-  Card, CardContent, CardMedia, CircularProgress } from '@mui/material';
+import { AppBar, Box, CssBaseline, Drawer, Toolbar, Typography, IconButton, List, ListItem, ListItemIcon,
+  ListItemText, Grid, Card, CardContent, CardMedia, CircularProgress } from '@mui/material';
 import { Dashboard, Category, Menu as MenuIcon, ShoppingCart, People } from '@mui/icons-material';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import { useNavigate } from 'react-router-dom';
@@ -41,23 +41,23 @@ function CategoriesPage() {
     <>
       <Toolbar />
       <List>
-        <ListItem onClick={() => navigate('/')}>
+        <ListItem button onClick={() => navigate('/')}>
           <ListItemIcon><Dashboard /></ListItemIcon>
           <ListItemText primary="Dashboard" />
         </ListItem>
-        <ListItem onClick={() => navigate('/products')}>
+        <ListItem button onClick={() => navigate('/products')}>
           <ListItemIcon><ShoppingBasketIcon /></ListItemIcon>
           <ListItemText primary="Products" />
         </ListItem>
-        <ListItem onClick={() => navigate('/categories')}>
+        <ListItem button onClick={() => navigate('/categories')}>
           <ListItemIcon><Category /></ListItemIcon>
           <ListItemText primary="Categories" />
         </ListItem>
-        <ListItem onClick={() => navigate('/users')}>
+        <ListItem button onClick={() => navigate('/users')}>
           <ListItemIcon><People /></ListItemIcon>
           <ListItemText primary="Users" />
         </ListItem>
-        <ListItem onClick={() => navigate('/orders')}>
+        <ListItem button onClick={() => navigate('/orders')}>
           <ListItemIcon><ShoppingCart /></ListItemIcon>
           <ListItemText primary="Orders" />
         </ListItem>
@@ -68,7 +68,6 @@ function CategoriesPage() {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-
       <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <Toolbar>
           <IconButton
@@ -127,30 +126,47 @@ function CategoriesPage() {
       >
 
         {loading ? (
-          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-          <CircularProgress />
+          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '70vh' }}>
+            <CircularProgress />
           </Box>
         ) : (
-          <Grid container spacing={3}>
-            {categories.map((category, index) => (
-              <Grid item xs={12} sm={6} md={4} key={index}>
-                <Card sx={{ height: 400, width: 500, display: 'flex', flexDirection: 'column', boxShadow: 3 , cursor: 'pointer'}}>
-                  <CardMedia
-                    component="img"
-                    image={categoryImages[category] }
-                    alt={category}
+          <Box sx={{ maxWidth: '1200px', mx: 'auto' }}>
+            <Grid sx={{ml:2}} container spacing={4}>
+              {categories.map((category, index) => (
+                <Grid item xs={12} sm={6} md={4} key={index}>
+                  <Card
                     sx={{
-                      height: 300,
-                      objectFit: 'cover',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      height: '100%',
+                      boxShadow: 3,
+                      cursor: 'pointer',
                     }}
-                  />
-                  <CardContent sx={{ flexGrow: 1, textAlign: 'center', textTransform: 'capitalize' }}>
-                    <Typography variant="h6">{category}</Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
+                  >
+                    <CardMedia
+                      component="img"
+                      image={categoryImages[category]}
+                      alt={category}
+                      sx={{
+                        height: { xs: 300, sm: 300, md: 300},
+                        width: { md: 500, sm: 450 ,xs: 270},
+                        objectFit: 'cover',
+                      }}
+                    />
+                    <CardContent
+                      sx={{
+                        flexGrow: 1,
+                        textAlign: 'center',
+                        textTransform: 'capitalize',
+                      }}
+                    >
+                      <Typography variant="h6">{category}</Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
         )}
       </Box>
     </Box>
