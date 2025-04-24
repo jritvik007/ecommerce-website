@@ -4,6 +4,7 @@ import { ShoppingCart, Dashboard, Menu as MenuIcon, Category, People } from '@mu
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 const drawerWidth = 240;
 
@@ -180,7 +181,7 @@ function ProductsPage() {
                   >
                     {product.description}
                   </Typography>
-                  <Button onClick={() => navigate('/cart')} variant='contained' sx={{ml: 9, mt: 1 }} >Add to Cart</Button>
+                  <Button onClick={() => navigate('/cart')} variant='contained' sx={{ml: 7, mt: 1}} startIcon={<AddShoppingCartIcon/>}>Add to Cart</Button>
                 </CardContent>
               </Card>
             </Grid>
