@@ -1,29 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import {
-  AppBar,
-  Box,
-  CssBaseline,
-  Drawer,
-  Toolbar,
-  Typography,
-  IconButton,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Grid,
-  Card,
-  CardContent,
-  CardMedia,
-  CircularProgress,
-} from '@mui/material';
-import {
-  Dashboard,
-  Category,
-  Menu as MenuIcon,
-  ShoppingCart,
-  People,
-} from '@mui/icons-material';
+import { AppBar, Box, CssBaseline, Drawer, Toolbar, Typography, IconButton, List, ListItem, ListItemIcon, ListItemText, Grid,
+  Card, CardContent, CardMedia, CircularProgress } from '@mui/material';
+import { Dashboard, Category, Menu as MenuIcon, ShoppingCart, People } from '@mui/icons-material';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
