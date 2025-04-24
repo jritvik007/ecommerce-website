@@ -181,7 +181,7 @@ function ProductsPage() {
                   >
                     {product.description}
                   </Typography>
-                  <Button onClick={() => navigate('/cart')} variant='contained' sx={{ml: 7, mt: 1}} startIcon={<AddShoppingCartIcon/>}>Add to Cart</Button>
+                  <Button size='small' onClick={() => navigate('/cart')} variant='contained' sx={{ml: 8, mt: 1}} startIcon={<AddShoppingCartIcon/>}>Add to Cart</Button>
                 </CardContent>
               </Card>
             </Grid>
