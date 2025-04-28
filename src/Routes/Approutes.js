@@ -1,22 +1,28 @@
-import React from 'react'
-import DashboardPage from '../Pages/DashboardPage'
-import CartPage from '../Pages/CartPage'
-import Categories from '../Pages/CategoriesPage'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import ProductsPage from '../Pages/ProductsPage'
-
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Login from '../Pages/Login';
+import Register from '../Pages/Register';
+import Dashboard from '../Pages/Dashboard';
+import AllProducts from '../Pages/AllProducts';
+import Categories from '../Pages/Categories';
+import Cart from '../Pages/Cart';
+import CategoryProducts from '../Pages/CategoryProducts';
+import Checkout from '../Pages/Checkout';
 
 function Approutes() {
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
-        <Route path="/" element={<DashboardPage />} />
-        <Route path="/cart" element={<CartPage />} />
-        <Route path="/products" element={<ProductsPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/products" element={<AllProducts />} />
         <Route path="/categories" element={<Categories />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/category/:category" element={<CategoryProducts />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
-    </Router>
-  )
+    </BrowserRouter>
+  );
 }
 
-export default Approutes
+export default Approutes;
