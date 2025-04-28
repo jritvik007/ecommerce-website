@@ -6,7 +6,7 @@ import AllProducts from '../Pages/AllProducts';
 import Categories from '../Pages/Categories';
 import Cart from '../Pages/Cart';
 import CategoryProducts from '../Pages/CategoryProducts';
-import Checkout from '../Pages/Checkout';
+import OrderPlaced from '../Pages/OrderPlaced';
 
 function Approutes() {
   return (
@@ -19,7 +19,7 @@ function Approutes() {
         <Route path="/categories" element={<Categories />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/category/:category" element={<CategoryProducts />} />
-        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/orderplaced" element={<OrderPlaced />} />
       </Routes>
     </BrowserRouter>
   );

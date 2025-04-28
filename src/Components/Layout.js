@@ -1,8 +1,10 @@
-import { AppBar, Toolbar, Typography, IconButton, Drawer, List, ListItem, ListItemText, Box, Badge } from '@mui/material';
+import { AppBar, Toolbar, Typography, IconButton, Drawer, List, ListItem, ListItemText, Box, Badge, Button } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import LoginIcon from '@mui/icons-material/Login';
+
 
 function Layout({ children }) {
   const [open, setOpen] = useState(false);
@@ -11,6 +13,7 @@ function Layout({ children }) {
   const toggleDrawer = () => {
     setOpen(!open);
   };
+  
 
   const navItems = [
     { text: "Dashboard", path: "/" },
@@ -27,13 +30,16 @@ function Layout({ children }) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            My E-Commerce
+            E-Commerce
           </Typography>
           <IconButton color="inherit" onClick={() => navigate('/cart')}>
             <Badge badgeContent={0} color="error">
               <ShoppingCartIcon />
             </Badge>
           </IconButton>
+            <Button color="inherit" onClick={() => navigate('/login')} sx={{ marginLeft: 2 }} startIcon={<LoginIcon />}>
+                Login
+            </Button>
         </Toolbar>
       </AppBar>
 

@@ -15,6 +15,9 @@ function AllProducts() {
 
   return (
     <Layout>
+      <Typography variant="h4" gutterBottom align="center" sx={{ fontWeight: 'bold' }}>
+        Products
+      </Typography>
       <Grid container spacing={3} justifyContent="center">
         {products.map(product => (
           <Grid item key={product.id}>

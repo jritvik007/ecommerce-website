@@ -1,28 +1,63 @@
-import { useState } from 'react';
-import { TextField, Button, Container, Typography, Box } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { TextField, Button, Typography, Box, Paper, Snackbar, Alert } from '@mui/material';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Appbar from '../Components/SimpleAppBar';
 
 function Login() {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
+  const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
+
+  useEffect(() => {
+    if (location.state) {
+      setEmail(location.state.email || '');
+      setPassword(location.state.password || '');
+    }
+  }, [location.state]);
 
   const handleLogin = (e) => {
     e.preventDefault();
     if (!email || !password) {
-      alert('Please fill all fields');
+      setSnackbar({ open: true, message: 'Please fill all fields', severity: 'warning' });
       return;
     }
-    alert('Logged In Successfully!');
-    navigate('/');
+
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const matchedUser = users.find(user => user.email === email && user.password === password);
+
+    if (!matchedUser) {
+      setSnackbar({ open: true, message: 'User not found. Please register first.', severity: 'error' });
+      return;
+    }
+
+    setSnackbar({ open: true, message: 'Logged In Successfully!', severity: 'success' });
+    setTimeout(() => navigate('/products'), 1500);
   };
 
   return (
     <>
       <Appbar />
-      <Container maxWidth="xs">
-        <Box sx={{ mt: 8 }}>
+      <Box
+        sx={{
+          backgroundColor: '#f0f2f5',
+          minHeight: '100vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          px: 2,
+        }}
+      >
+        <Paper
+          elevation={3}
+          sx={{
+            p: 3,
+            width: { xs: '100%', sm: 400 },
+            maxWidth: '100%',
+            boxSizing: 'border-box',
+          }}
+        >
           <Typography variant="h4" align="center" gutterBottom>
             Login
           </Typography>
@@ -42,15 +77,39 @@ function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button fullWidth variant="contained" type="submit" sx={{ mt: 2 }}>
+            <Button
+              fullWidth
+              variant="contained"
+              type="submit"
+              sx={{ mt: 2, mb: 1 }}
+            >
               Login
             </Button>
-            <Button fullWidth onClick={() => navigate('/register')} sx={{ mt: 1 }}>
-              Don't have an account? Register
+            <Button
+              fullWidth
+              variant="text"
+              onClick={() => navigate('/register')}
+            >
+              Don’t have an account? Register
             </Button>
           </form>
-        </Box>
-      </Container>
+        </Paper>
+      </Box>
+
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={3000}
+        onClose={() => setSnackbar({ ...snackbar, open: false })}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert
+          severity={snackbar.severity}
+          onClose={() => setSnackbar({ ...snackbar, open: false })}
+          sx={{ width: '100%' }}
+        >
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </>
   );
 }

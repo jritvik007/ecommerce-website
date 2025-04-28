@@ -11,39 +11,59 @@ function Cart() {
 
   return (
     <Layout>
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h4" gutterBottom align="center" sx={{ fontWeight: 'bold' }}>
         Cart
       </Typography>
 
       {cartItems.length === 0 ? (
-        <Typography variant="h6">Your Cart is Empty 🛒</Typography>
+        <Typography variant="h6" gutterBottom align='center' sx={{ mt: 4}}>Your Cart is Empty 🛒</Typography>
       ) : (
         <>
           <Grid container spacing={3}>
             {cartItems.map((item) => (
               <Grid item xs={12} sm={6} md={4} lg={3} key={item.id}>
-                <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-                  <CardMedia
-                    component="img"
-                    height="200"
-                    image={item.image}
-                    alt={item.title}
-                    sx={{ objectFit: 'contain', p: 2 }}
-                  />
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography gutterBottom variant="h6" noWrap>
-                      {item.title}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      ${item.price}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button color="error" onClick={() => removeFromCart(item.id)}>
-                      Remove
-                    </Button>
-                  </CardActions>
-                </Card>
+                <Card
+                sx={{
+                  width: 300, 
+                  height: 400, 
+                  display: 'flex',
+                  flexDirection: 'column',
+                  boxShadow: 3, 
+                  transition: 'transform 0.3s ease', 
+                  '&:hover': {
+                    transform: 'scale(1.05)', 
+                    boxShadow: 6, 
+                  },
+                }}
+              >
+                <CardMedia
+                  component="img"
+                  height="200"
+                  image={item.image}
+                  alt={item.title}
+                  sx={{
+                    objectFit: 'contain',
+                    maxHeight: '200px', 
+                    width: 250,
+                    p: 2,
+                    display: 'block',
+                    margin: '0 auto', 
+                  }}
+                />
+                <CardContent sx={{ flexGrow: 1, textAlign: 'center', paddingBottom: '16px' }}>
+                  <Typography gutterBottom variant="h6" component="div" noWrap>
+                    {item.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    ${item.price}
+                  </Typography>
+                </CardContent>
+                <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
+                <Button color="error" onClick={() => removeFromCart(item.id)}>
+                  Remove
+                </Button>
+                </CardActions>
+              </Card>
               </Grid>
             ))}
           </Grid>
@@ -54,8 +74,8 @@ function Cart() {
             <Typography variant="h5">
               Total: ${totalPrice.toFixed(2)}
             </Typography>
-            <Button variant="contained" color="primary" onClick={() => navigate('/checkout')}>
-               Proceed to Checkout
+            <Button variant="contained" color="primary" onClick={() => navigate('/orderplaced')}>
+               Place Order
              </Button>
           </Box>
         </>
