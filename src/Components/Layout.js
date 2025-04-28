@@ -3,10 +3,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {useCart} from '../Context/Cartcontext';
 
 function Layout({ children }) {
-    const { cartItems } = useCart();
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -16,7 +14,7 @@ function Layout({ children }) {
 
   const navItems = [
     { text: "Dashboard", path: "/" },
-    { text: "All Products", path: "/products" },
+    { text: "Products", path: "/products" },
     { text: "Categories", path: "/categories" },
     { text: "Cart", path: "/cart" }
   ];
@@ -40,7 +38,7 @@ function Layout({ children }) {
       </AppBar>
 
       <Drawer anchor="left" open={open} onClose={toggleDrawer}>
-        <List sx={{ width: 250 }}>
+        <List sx={{ width: 250 , cursor: 'pointer'}}>
           {navItems.map((item, index) => (
             <ListItem button key={index} onClick={() => { navigate(item.path); setOpen(false); }}>
               <ListItemText primary={item.text} />

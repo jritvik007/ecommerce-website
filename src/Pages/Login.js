@@ -15,7 +15,7 @@ function Login() {
       return;
     }
     alert('Logged In Successfully!');
-    navigate('/dashboard');
+    navigate('/');
   };
 
   return (
