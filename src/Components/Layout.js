@@ -13,6 +13,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import CategoryIcon from '@mui/icons-material/Category';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 
 function Layout({ children }) {
@@ -66,7 +67,11 @@ function Layout({ children }) {
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             E-Shop
           </Typography>
-
+          <IconButton color="inherit">
+            <Badge badgeContent={0} color="error">
+              <FavoriteIcon />
+            </Badge>
+          </IconButton>
           <IconButton color="inherit" onClick={() => navigate('/cart')}>
             <Badge badgeContent={cartQuantity} color="error">
               <ShoppingCartIcon />
