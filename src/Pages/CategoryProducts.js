@@ -20,6 +20,8 @@ function CategoryProducts() {
 
   return (
     <Layout>
+      <Button variant="contained" startIcon={<ArrowBackIcon />} onClick={() => navigate(-1)}
+      sx={{ mr: 'auto' }}>Go Back</Button>
       <Typography variant="h4" gutterBottom align="center" sx={{ fontWeight: 'bold' , textTransform: 'capitalize'}}>{category}</Typography>
       <Grid container spacing={3} xs={12} justifyContent="center">
         {products.map(product => (
@@ -75,8 +77,6 @@ function CategoryProducts() {
           </Grid>
         ))}
       </Grid>
-      <Button variant="contained" startIcon={<ArrowBackIcon />} onClick={() => navigate(-1)}
-      sx={{ mt: 2 , ml: 2 }}>Go Back</Button>
     </Layout>
   );
 }

@@ -2,6 +2,9 @@ import Layout from '../Components/Layout';
 import { useEffect, useState } from 'react';
 import { Grid, Card, CardMedia, CardContent, Typography, Button, CardActions } from '@mui/material';
 import { useCart } from '../Context/Cartcontext';
+import Checkbox from '@mui/material/Checkbox';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import Favorite from '@mui/icons-material/Favorite';
 
 function AllProducts() {
   const [products, setProducts] = useState([]);
@@ -54,10 +57,10 @@ function AllProducts() {
                     {product.title}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    ${product.price}
+                   ${product.price}
                   </Typography>
                 </CardContent>
-                <CardActions sx={{ justifyContent: 'center', paddingTop: 0 }}>
+                <CardActions sx={{ justifyContent: 'center', paddingTop: 0 , ml: 6}}>
                   <Button
                     size="small"
                     onClick={(e) => {
@@ -67,6 +70,7 @@ function AllProducts() {
                   >
                     Add to Cart
                   </Button>
+                  <Checkbox color="error" icon={<FavoriteBorder />} checkedIcon={<Favorite />} />
                 </CardActions>
               </Card>
           </Grid>

@@ -21,7 +21,7 @@ function Dashboard() {
                 Total Sales
               </Typography>
               <Typography variant="h5" sx={{ color: 'green', fontWeight: 'bold' }}>
-                ₹38,27,715
+                $45000
               </Typography>
             </CardContent>
             <CardMedia
@@ -78,7 +78,7 @@ function Dashboard() {
                 Revenue
               </Typography>
               <Typography variant="h5" sx={{ color: 'purple', fontWeight: 'bold' }}>
-               ₹6,97,494
+               $8200
               </Typography>
             </CardContent>
             <CardMedia

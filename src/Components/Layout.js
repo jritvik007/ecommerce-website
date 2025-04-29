@@ -12,6 +12,7 @@ import logo from '../Assets/images/shopping-bag.png';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import CategoryIcon from '@mui/icons-material/Category';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 
 function Layout({ children }) {
@@ -99,8 +100,10 @@ function Layout({ children }) {
       </AppBar>
 
       <Drawer anchor="left" open={open} onClose={toggleDrawer}>
-        <List sx={{ width: 250, cursor: 'pointer' }}>
-          <Divider sx={{ mt: 7 }} />
+        <List sx={{ width: 250, cursor: 'pointer'}}>
+          <IconButton onClick={toggleDrawer} sx={{ ml: 25}}
+          ><ArrowBackIosNewIcon/></IconButton>
+          <Divider sx={{ mt: 1 }}/>
           {navItems.map((item, index) => (
             <ListItem
               button
