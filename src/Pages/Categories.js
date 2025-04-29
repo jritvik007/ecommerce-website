@@ -33,7 +33,7 @@ function Categories() {
       </Typography>
       <Grid container spacing={3} justifyContent={'center'} sx={{ marginTop: 3 }}>
         {categories.map((category) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={category}>
+          <Grid item xs={12} key={category}>
             <Card
             sx={{
               width: 300, 

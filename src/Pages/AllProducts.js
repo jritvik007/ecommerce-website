@@ -18,7 +18,7 @@ function AllProducts() {
       <Typography variant="h4" gutterBottom align="center" sx={{ fontWeight: 'bold' }}>
         Products
       </Typography>
-      <Grid container spacing={3} justifyContent="center">
+      <Grid container spacing={3} justifyContent="center" xs={12}>
         {products.map(product => (
           <Grid item key={product.id}>
               <Card

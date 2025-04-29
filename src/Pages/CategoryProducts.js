@@ -20,8 +20,8 @@ function CategoryProducts() {
 
   return (
     <Layout>
-      <h1 style={{ textTransform: 'capitalize' }}>{category}</h1>
-      <Grid container spacing={3} justifyContent="center">
+      <Typography variant="h4" gutterBottom align="center" sx={{ fontWeight: 'bold' , textTransform: 'capitalize'}}>{category}</Typography>
+      <Grid container spacing={3} xs={12} justifyContent="center">
         {products.map(product => (
           <Grid item key={product.id}>
               <Card

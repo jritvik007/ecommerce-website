@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import { Snackbar } from '@mui/material';
 
 const Cartcontext = createContext();
@@ -13,6 +13,28 @@ export function CartProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
 
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    const storedIsLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn'));
+
+    if (storedUser && storedIsLoggedIn) {
+      setUser(storedUser);
+      setIsLoggedIn(storedIsLoggedIn);
+
+      const allCarts = JSON.parse(localStorage.getItem('userCarts')) || {};
+      const userCart = allCarts[storedUser.email] || [];
+      setCartItems(userCart);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isLoggedIn && user?.email) {
+      const allCarts = JSON.parse(localStorage.getItem('userCarts')) || {};
+      allCarts[user.email] = cartItems;
+      localStorage.setItem('userCarts', JSON.stringify(allCarts));
+    }
+  }, [cartItems, isLoggedIn, user]);
+
   const showSnackbar = (message) => {
     setSnackbar({ open: true, message });
   };
@@ -24,12 +46,22 @@ export function CartProvider({ children }) {
   const login = (userInfo) => {
     setIsLoggedIn(true);
     setUser(userInfo);
+    localStorage.setItem('user', JSON.stringify(userInfo));
+    localStorage.setItem('isLoggedIn', true);
+
+    const allCarts = JSON.parse(localStorage.getItem('userCarts')) || {};
+    const userCart = allCarts[userInfo.email] || [];
+    setCartItems(userCart);
+
     showSnackbar(`Welcome, ${userInfo.name}!`);
   };
 
   const logout = () => {
     setIsLoggedIn(false);
     setUser(null);
+    setCartItems([]);
+    localStorage.removeItem('user');
+    localStorage.removeItem('isLoggedIn');
     showSnackbar('Logged out successfully!');
   };
 
@@ -71,11 +103,14 @@ export function CartProvider({ children }) {
   const cartQuantity = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
-    <Cartcontext.Provider value={{ cartItems, addToCart, removeFromCart, login, logout, isLoggedIn, user, cartQuantity }}>
+    <Cartcontext.Provider value={{
+      cartItems, addToCart, removeFromCart, login, logout,
+      isLoggedIn, user, cartQuantity
+    }}>
       {children}
       <Snackbar
         open={snackbar.open}
-        autoHideDuration={500}
+        autoHideDuration={1500}
         onClose={handleCloseSnackbar}
         message={snackbar.message}
       />

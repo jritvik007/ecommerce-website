@@ -19,9 +19,9 @@ function Cart() {
         <Typography variant="h6" gutterBottom align='center' sx={{ mt: 4}}>Your Cart is Empty 🛒</Typography>
       ) : (
         <>
-          <Grid container spacing={3}>
+          <Grid container spacing={3} justifyContent='center'>
             {cartItems.map((item) => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={item.id}>
+              <Grid item xs={12} key={item.id}>
                 <Card
                   sx={{
                     width: 300, 

@@ -12,6 +12,7 @@ function Dashboard() {
       <Typography variant="h4" gutterBottom align="center" sx={{ fontWeight: 'bold', mb: 3 }}>
         Dashboard
       </Typography>
+    <Grid item xs={12}>
       <Grid container spacing={4} justifyContent="center">
         <Grid item xs={12} sm={6} md={3}>
           <Card sx={{ boxShadow: 3 }}>
@@ -148,6 +149,7 @@ function Dashboard() {
           </Paper>
         </Grid>
       </Grid>
+    </Grid>
     </Layout>
   );
 }
