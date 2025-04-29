@@ -117,13 +117,13 @@ function Dashboard() {
               <Box display="flex" alignItems="center" mb={2}>
                 <Avatar sx={{ bgcolor: 'blue', marginRight: 2 }}>A</Avatar>
                 <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                  New Order Placed
+                  New Orders Placed
                 </Typography>
               </Box>
               <Box display="flex" alignItems="center" mb={2}>
                 <Avatar sx={{ bgcolor: 'green', marginRight: 2 }}>B</Avatar>
                 <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                  New User Signed Up
+                  New Users Signed Up
                 </Typography>
               </Box>
               <Box display="flex" alignItems="center" mb={2}>
@@ -141,7 +141,7 @@ function Dashboard() {
                 <Box display="flex" alignItems="center" mb={2}>
                 <Avatar sx={{ bgcolor: 'orange', marginRight: 2 }}>E</Avatar>
                 <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                  New Product Added
+                  New Products Added
                 </Typography>
                 </Box> 
             </Box>

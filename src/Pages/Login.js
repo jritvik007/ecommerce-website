@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { TextField, Button, Typography, Box, Paper, Snackbar, Alert } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useCart } from '../Context/Cartcontext';
 import Appbar from '../Components/SimpleAppBar';
 
 function Login() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { login } = useCart();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
@@ -32,6 +34,7 @@ function Login() {
       return;
     }
 
+    login({ name: matchedUser.name, email: matchedUser.email });
     setSnackbar({ open: true, message: 'Logged In Successfully!', severity: 'success' });
     setTimeout(() => navigate('/products'), 1500);
   };
@@ -39,74 +42,22 @@ function Login() {
   return (
     <>
       <Appbar />
-      <Box
-        sx={{
-          backgroundColor: '#f0f2f5',
-          minHeight: '100vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          px: 2,
-        }}
-      >
-        <Paper
-          elevation={3}
-          sx={{
-            p: 3,
-            width: { xs: '100%', sm: 400 },
-            maxWidth: '100%',
-            boxSizing: 'border-box',
-          }}
-        >
+      <Box sx={{ backgroundColor: '#f0f2f5', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', px: 2 }}>
+        <Paper elevation={3} sx={{ p: 3, width: { xs: '100%', sm: 400 }, maxWidth: '100%', boxSizing: 'border-box' }}>
           <Typography variant="h4" align="center" gutterBottom>
             Login
           </Typography>
           <form onSubmit={handleLogin}>
-            <TextField
-              fullWidth
-              label="Email"
-              margin="normal"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <TextField
-              fullWidth
-              label="Password"
-              type="password"
-              margin="normal"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <Button
-              fullWidth
-              variant="contained"
-              type="submit"
-              sx={{ mt: 2, mb: 1 }}
-            >
-              Login
-            </Button>
-            <Button
-              fullWidth
-              variant="text"
-              onClick={() => navigate('/register')}
-            >
-              Don’t have an account? Register
-            </Button>
+            <TextField fullWidth label="Email" margin="normal" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <TextField fullWidth label="Password" type="password" margin="normal" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <Button fullWidth variant="contained" type="submit" sx={{ mt: 2, mb: 1 }}>Login</Button>
+            <Button fullWidth variant="text" onClick={() => navigate('/register')}>Don’t have an account? Register</Button>
           </form>
         </Paper>
       </Box>
 
-      <Snackbar
-        open={snackbar.open}
-        autoHideDuration={3000}
-        onClose={() => setSnackbar({ ...snackbar, open: false })}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-      >
-        <Alert
-          severity={snackbar.severity}
-          onClose={() => setSnackbar({ ...snackbar, open: false })}
-          sx={{ width: '100%' }}
-        >
+      <Snackbar open={snackbar.open} autoHideDuration={3000} onClose={() => setSnackbar({ ...snackbar, open: false })} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+        <Alert severity={snackbar.severity} onClose={() => setSnackbar({ ...snackbar, open: false })} sx={{ width: '100%' }}>
           {snackbar.message}
         </Alert>
       </Snackbar>

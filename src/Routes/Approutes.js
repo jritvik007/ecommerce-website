@@ -7,6 +7,7 @@ import Categories from '../Pages/Categories';
 import Cart from '../Pages/Cart';
 import CategoryProducts from '../Pages/CategoryProducts';
 import OrderPlaced from '../Pages/OrderPlaced';
+import NotFound from '../Pages/NotFound';
 
 function Approutes() {
   return (
@@ -20,6 +21,7 @@ function Approutes() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/category/:category" element={<CategoryProducts />} />
         <Route path="/orderplaced" element={<OrderPlaced />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
