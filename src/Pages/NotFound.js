@@ -14,7 +14,7 @@ function NotFound() {
         <Typography variant="h5" gutterBottom>
           Oops! Page Not Found.
         </Typography>
-        <Button variant="contained" onClick={() => navigate('/')}>
+        <Button onClick={() => navigate('/')}>
           Go to Home
         </Button>
       </Container>
