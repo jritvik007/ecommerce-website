@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from '../Pages/Login';
 import Register from '../Pages/Register';
 import Dashboard from '../Pages/Dashboard';
@@ -16,8 +16,7 @@ function Approutes() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/" element={<Navigate to="/products" />} />
+        <Route path="/" element={<Dashboard />} />
         <Route path="/products" element={<AllProducts />} />
         <Route path="/categories" element={<Categories />} />
         <Route path="/cart" element={<Cart />} />

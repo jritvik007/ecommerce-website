@@ -1,6 +1,6 @@
 import { AppBar, Toolbar, Typography, IconButton, Drawer, List, ListItem, ListItemText,
   Box, Badge, Button, Divider, Dialog, DialogTitle, DialogContent, DialogContentText,
-  DialogActions, ListItemIcon, Grid
+  DialogActions, ListItemIcon, Grid, Fab
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -16,10 +16,10 @@ import { useNavigate } from 'react-router-dom';
 import { useCart } from '../Context/Cartcontext';
 import logo from '../Assets/images/shopping-bag.png';
 import FacebookIcon from '@mui/icons-material/Facebook';
-import TwitterIcon from '@mui/icons-material/Twitter';
+import XIcon from '@mui/icons-material/X';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
 function Layout({ children }) {
   const [open, setOpen] = useState(false);
@@ -45,15 +45,22 @@ function Layout({ children }) {
     setLogoutDialogOpen(false);
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
   const navItems = [
-    { text: "Dashboard", path: "/dashboard", icon: <DashboardIcon /> },
+    { text: "Dashboard", path: "/", icon: <DashboardIcon /> },
     { text: "Products", path: "/products", icon: <StorefrontIcon /> },
     { text: "Categories", path: "/categories", icon: <CategoryIcon /> },
   ];
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-      <AppBar position="fixed">
+      <AppBar position="fixed" xs={12}>
         <Toolbar>
           <IconButton color="inherit" edge="start" onClick={toggleDrawer}>
             <MenuIcon />
@@ -127,6 +134,20 @@ function Layout({ children }) {
         {children}
       </Box>
 
+      <Box sx={{ position: 'fixed', bottom: 20, right: 20 }}>
+        <Fab
+          color="primary"
+          onClick={scrollToTop}
+          sx={{ zIndex: 999,
+            bgcolor: '#ff5722',
+            '&:hover': {
+              bgcolor: '#ff9800',
+            }, }}
+        >
+          <ArrowUpwardIcon />
+        </Fab>
+      </Box>
+
       <Dialog
         open={logoutDialogOpen}
         onClose={handleCancelLogout}
@@ -151,7 +172,7 @@ function Layout({ children }) {
 
       <Box component="footer" sx={{ bgcolor: 'primary.main', color: 'white', py: 4, mt: 4 }}>
         <Box sx={{ maxWidth: 1200, mx: 'auto', px: 3 }}>
-          <Grid container spacing={4}>
+          <Grid container spacing={4} justifyContent='center'>
             <Grid item xs={12} sm={4}>
               <Typography variant="h6" gutterBottom>
                 E-Shop
@@ -161,22 +182,22 @@ function Layout({ children }) {
               </Typography>
             </Grid>
 
-            <Grid item xs={12} sm={4} sx={{ml:8}}>
+            <Grid item xs={12} sm={4}>
               <Typography variant="h6" gutterBottom>
                 Quick Links
               </Typography>
-              <Typography variant="body2" sx={{ cursor: 'pointer' }} onClick={() => navigate('/dashboard')}>
+              <Typography variant="body2" sx={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => navigate('/dashboard')}>
                 Dashboard
               </Typography>
-              <Typography variant="body2" sx={{ cursor: 'pointer' }} onClick={() => navigate('/products')}>
+              <Typography variant="body2" sx={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => navigate('/products')}>
                 Products
               </Typography>
-              <Typography variant="body2" sx={{ cursor: 'pointer' }} onClick={() => navigate('/categories')}>
+              <Typography variant="body2" sx={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => navigate('/categories')}>
                 Categories
               </Typography>
             </Grid>
 
-            <Grid item xs={12} sm={4} sx={{ml:9}}>
+            <Grid item xs={12} sm={4}>
               <Typography variant="h6" gutterBottom>
                 Contact Us
               </Typography>
@@ -184,7 +205,7 @@ function Layout({ children }) {
               <Typography variant="body2">Phone: +91 9876543210</Typography>
             </Grid>
 
-        <Grid item xs={12} sm={4} sx={{ml:9}}>
+        <Grid item xs={12} sm={4}>
          <Typography variant="h6" gutterBottom>
          Follow Us
          </Typography>
@@ -200,12 +221,12 @@ function Layout({ children }) {
           </IconButton>
           <IconButton
           component="a"
-          href="https://twitter.com"
+          href="https://x.com"
           target="_blank"
           rel="noopener noreferrer"
           sx={{ color: 'white' }}
           >
-          <TwitterIcon />
+          <XIcon />
           </IconButton>
           <IconButton
           component="a"

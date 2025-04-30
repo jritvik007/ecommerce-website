@@ -1,7 +1,7 @@
 import Layout from '../Components/Layout';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Grid, Card, CardMedia, CardContent, Typography, Button, CardActions } from '@mui/material';
+import { Grid, Card, CardMedia, CardContent, Typography, Button, CardActions, Fab } from '@mui/material';
 import { useCart } from '../Context/Cartcontext';
 import { useNavigate } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -20,9 +20,16 @@ function CategoryProducts() {
 
   return (
     <Layout>
-      <Button variant="contained" startIcon={<ArrowBackIcon />} onClick={() => navigate(-1)}
-      sx={{ mr: 'auto', mb: 2 }}>Go Back</Button>
-      <Typography variant="h4" gutterBottom align="center" sx={{ fontWeight: 'bold' , textTransform: 'capitalize'}}>{category}</Typography>
+      <Fab variant="extended" color="primary" onClick={() => navigate(-1)}
+      sx={{ mr: 'auto', mb: 2,
+        bgcolor: '#ff9800',
+        '&:hover': {
+          bgcolor: '#ff5722',
+        }}} >
+        <ArrowBackIcon/>
+        Go Back
+        </Fab>
+      <Typography color="primary" variant="h4" gutterBottom align="center" sx={{ fontWeight: 'bold' , textTransform: 'capitalize', mb: 4}}>{category}</Typography>
       <Grid container spacing={3} xs={12} justifyContent="center">
         {products.map(product => (
           <Grid item key={product.id}>

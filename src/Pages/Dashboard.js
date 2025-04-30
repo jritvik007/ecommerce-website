@@ -2,7 +2,7 @@ import { Typography, Box, Grid, Card, CardContent, CardMedia, Button } from '@mu
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import Layout from '../Components/Layout';
-
+import { useNavigate } from 'react-router-dom';
 import gif1 from '../Assets/images/slide1.gif';
 import gif2 from '../Assets/images/slide2.gif';
 import gif3 from '../Assets/images/slide3.gif';
@@ -23,15 +23,24 @@ const images = [
 ];
 
 const cardData = [
-  { title: 'Electronics', image: electronics2 },
-  { title: 'Men\'s Fashion', image: mens2 },
-  { title: 'Women\'s Fashion', image: womens2 },
-  { title: 'Jewelery', image: jewellery2},
-  { title: 'Shoes', image: shoes },
-  { title: 'Books', image: book },
+  { title: 'Electronics | Up to 60% off', image: electronics2, category: 'electronics' },
+  { title: 'Men\'s Fashion | 50-80% off', image: mens2, category: 'men\'s clothing' },
+  { title: 'Women\'s Fashion | 50-80% off', image: womens2, category: 'women\'s clothing'},
+  { title: 'Jewellery | 25% off', image: jewellery2, category: 'jewelery'},
+  { title: 'Shoes | Flat 60% off', image: shoes, category: 'shoes' },
+  { title: 'Books | Buy 1 Get 1 Free', image: book, category: 'books' },
 ];
 
+
+
 function Dashboard() {
+
+const navigate = useNavigate();
+
+const handleExploreClick = (category) => {
+  navigate(`/category/${category}`);
+};
+
   return (
     <Layout>
       <Box sx={{ mb: 4 }}>
@@ -63,7 +72,7 @@ function Dashboard() {
       </Typography>
 
       <Grid container spacing={3} justifyContent="center">
-  {cardData.map((card, index) => (
+    {cardData.map((card, index) => (
     <Grid item key={index} xs={12} sm={6} md={4}>
       <Card
         sx={{
@@ -86,20 +95,19 @@ function Dashboard() {
           sx={{
             height: 400,
             width: '100%',
-            objectFit: 'cover',
+            objectFit: 'contain',
           }}
         />
         <CardContent sx={{ flexGrow: 1 }}>
           <Typography sx={{ml:1}} variant="h6" gutterBottom>
             {card.title}
           </Typography>
-          <Button sx={{fontSize: 14}}>Explore more</Button>
+          <Button sx={{fontSize: 14}} onClick={() => handleExploreClick(card.category)}>Explore items</Button>
         </CardContent>
       </Card>
     </Grid>
   ))}
 </Grid>
-
     </Layout>
   );
 }

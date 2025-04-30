@@ -11,7 +11,7 @@ function Wishlist() {
         Wishlist
       </Typography>
       {wishlistItems.length === 0 ? (
-        <Typography variant="h6" gutterBottom align='center' sx={{ mt: 4}}>Your wishlist is empty.</Typography>
+        <Typography variant="h6" gutterBottom align='center' sx={{ mt: 4}}>Wishlist is empty.</Typography>
       ) : (
         <Grid container spacing={3} justifyContent="center" xs={12}>
           {wishlistItems.map(product => (

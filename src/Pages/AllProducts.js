@@ -5,6 +5,8 @@ import { useCart } from '../Context/Cartcontext';
 import Checkbox from '@mui/material/Checkbox';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
+import Rating from '@mui/material/Rating';
+import Stack from '@mui/material/Stack';
 
 function AllProducts() {
   const [products, setProducts] = useState([]);
@@ -25,7 +27,7 @@ function AllProducts() {
   return (
     <Layout>
       <Box sx={{ textAlign: 'center', mb: 4 }}>
-        <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold' }}>
+        <Typography color="primary" variant="h4" gutterBottom sx={{ fontWeight: 'bold' }}>
           Products
         </Typography>
         <TextField
@@ -75,6 +77,9 @@ function AllProducts() {
                 <Typography variant="body2" color="text.secondary">
                   ${product.price}
                 </Typography>
+                <Stack spacing={1} alignItems="center">
+                <Rating name="half-rating-read" value={product.rating.rate} precision={0.5} readOnly />
+                </Stack>
               </CardContent>
               <CardActions sx={{ justifyContent: 'center', paddingTop: 0 , ml: 6}}>
               <Button

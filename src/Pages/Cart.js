@@ -16,7 +16,7 @@ function Cart() {
       </Typography>
 
       {cartItems.length === 0 ? (
-        <Typography variant="h6" gutterBottom align='center' sx={{ mt: 4}}>Your Cart is Empty 🛒</Typography>
+        <Typography variant="h6" gutterBottom align='center' sx={{ mt: 4}}>Cart is Empty 🛒</Typography>
       ) : (
         <>
           <Grid container spacing={3} justifyContent='center'>

@@ -28,7 +28,7 @@ function Categories() {
 
   return (
     <Layout>
-      <Typography variant="h4" gutterBottom align="center" sx={{ fontWeight: 'bold', marginTop: 2 }}>
+      <Typography color="primary" variant="h4" gutterBottom align="center" sx={{ fontWeight: 'bold', marginTop: 2 }}>
         Categories
       </Typography>
       <Grid container spacing={3} justifyContent={'center'} sx={{ marginTop: 3 }}>
