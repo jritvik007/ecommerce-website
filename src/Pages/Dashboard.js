@@ -1,155 +1,105 @@
-import { Grid, Typography, Card, CardContent, CardMedia, Box, Paper, Avatar } from '@mui/material';
+import { Typography, Box, Grid, Card, CardContent, CardMedia, Button } from '@mui/material';
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import Layout from '../Components/Layout';
-import salesImage from '../Assets/images/sales.jpg';
-import usersImage from '../Assets/images/users.jpg';
-import ordersImage from '../Assets/images/orders.png';
-import revenueImage from '../Assets/images/revenue.jpg';
-import graphImage from '../Assets/images/graph.png';
+
+import gif1 from '../Assets/images/slide1.gif';
+import gif2 from '../Assets/images/slide2.gif';
+import gif3 from '../Assets/images/slide3.gif';
+import gif4 from '../Assets/images/slide4.gif';
+import electronics2 from '../Assets/images/electronics2.png';
+import mens2 from '../Assets/images/mens2.png';
+import womens2 from '../Assets/images/womens2.png';
+import jewellery2 from '../Assets/images/jewellery2.png';
+import shoes from '../Assets/images/shoes.png';
+import book from '../Assets/images/book.png';
+
+
+const images = [
+  { url: gif1, alt: 'First GIF' },
+  { url: gif2, alt: 'Second GIF' },
+  { url: gif3, alt: 'Third GIF' },
+  { url: gif4, alt: 'Fourth GIF' }
+];
+
+const cardData = [
+  { title: 'Electronics', image: electronics2 },
+  { title: 'Men\'s Fashion', image: mens2 },
+  { title: 'Women\'s Fashion', image: womens2 },
+  { title: 'Jewelery', image: jewellery2},
+  { title: 'Shoes', image: shoes },
+  { title: 'Books', image: book },
+];
 
 function Dashboard() {
   return (
     <Layout>
-      <Typography variant="h4" gutterBottom align="center" sx={{ fontWeight: 'bold', mb: 3 }}>
-        Dashboard
+      <Box sx={{ mb: 4 }}>
+        <Carousel
+          showThumbs={false}
+          autoPlay
+          infiniteLoop
+          showStatus={false}
+          dynamicHeight={false}
+        >
+          {images.map((img, index) => (
+            <div key={index}>
+              <img
+                src={img.url}
+                alt={img.alt}
+                style={{
+                  width: '100%',
+                  height: '300px',
+                  objectFit: 'cover'
+                }}
+              />
+            </div>
+          ))}
+        </Carousel>
+      </Box>
+
+      <Typography variant="h5" align="center" sx={{ mt: 4, mb: 2, fontWeight: 'bold' }}>
+        Featured Products
       </Typography>
-    <Grid item xs={12}>
-      <Grid container spacing={4} justifyContent="center">
-        <Grid item xs={12} sm={6} md={3}>
-          <Card sx={{ boxShadow: 3 }}>
-            <CardContent>
-              <Typography variant="h6" sx={{ fontWeight: 'bold', marginBottom: 2 }}>
-                Total Sales
-              </Typography>
-              <Typography variant="h5" sx={{ color: 'green', fontWeight: 'bold' }}>
-                $45000
-              </Typography>
-            </CardContent>
-            <CardMedia
-              component="img"
-              height="250"
-              image={salesImage} 
-              alt="Sales Overview"
-            />
-          </Card>
-        </Grid>
 
-        <Grid item xs={12} sm={6} md={3}>
-          <Card sx={{ boxShadow: 3 , width: 450}}>
-            <CardContent>
-              <Typography variant="h6" sx={{ fontWeight: 'bold', marginBottom: 2 }}>
-                Total Users
-              </Typography>
-              <Typography variant="h5" sx={{ color: 'blue', fontWeight: 'bold' }}>
-                12,340
-              </Typography>
-            </CardContent>
-            <CardMedia
-              component="img"
-              height="250"
-              image={usersImage} 
-              alt="Users Overview"
-            />
-          </Card>
-        </Grid>
-
-        <Grid item xs={12} sm={6} md={3}>
-          <Card sx={{ boxShadow: 3 ,height: 362}}>
-            <CardContent>
-              <Typography variant="h6" sx={{ fontWeight: 'bold', marginBottom: 2 }}>
-                New Orders
-              </Typography>
-              <Typography variant="h5" sx={{ color: 'orange', fontWeight: 'bold' }}>
-                34 Orders
-              </Typography>
-            </CardContent>
-            <CardMedia
-              component="img"
-              height="235"
-              image={ordersImage}
-              alt="Orders Overview"
-            />
-          </Card>
-        </Grid>
-
-        <Grid item xs={12} sm={6} md={3}>
-          <Card sx={{ boxShadow: 3 }}>
-            <CardContent>
-              <Typography variant="h6" sx={{ fontWeight: 'bold', marginBottom: 2 }}>
-                Revenue
-              </Typography>
-              <Typography variant="h5" sx={{ color: 'purple', fontWeight: 'bold' }}>
-               $8200
-              </Typography>
-            </CardContent>
-            <CardMedia
-              component="img"
-              height="250"
-              image={revenueImage}
-              alt="Revenue Overview"
-            />
-          </Card>
-        </Grid>
-      </Grid>
-
-      <Grid container spacing={4} sx={{ marginTop: 4, justifyContent: 'center' }}>
-        <Grid item xs={12} sm={6} md={8}>
-          <Card sx={{ padding: 3, boxShadow: 3 }}>
-            <CardContent>
-            <Typography variant="h6" sx={{ fontWeight: 'bold', marginBottom: 2 }}>
-              Sales Analytics
-            </Typography>
-            </CardContent>
-            <CardMedia
-              component="img"
-              height="240"
-              image={graphImage}
-              alt="Sales Analytics"
-              sx={{ objectFit: 'contain', maxHeight: '400px', width: '100%', padding: 2 }}
-            />
-          </Card>
-        </Grid>
-
-        <Grid item xs={12} sm={6} md={4}>
-          <Paper sx={{ padding: 3, boxShadow: 3, height: 351 }}>
-            <Typography variant="h6" sx={{ fontWeight: 'bold', marginBottom: 2 }}>
-              Latest Activity
-            </Typography>
-            <Box>
-              <Box display="flex" alignItems="center" mb={2}>
-                <Avatar sx={{ bgcolor: 'blue', marginRight: 2 }}>A</Avatar>
-                <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                  New Orders Placed
-                </Typography>
-              </Box>
-              <Box display="flex" alignItems="center" mb={2}>
-                <Avatar sx={{ bgcolor: 'green', marginRight: 2 }}>B</Avatar>
-                <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                  New Users Signed Up
-                </Typography>
-              </Box>
-              <Box display="flex" alignItems="center" mb={2}>
-                <Avatar sx={{ bgcolor: 'purple', marginRight: 2 }}>C</Avatar>
-                <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                  Product Restocked
-                </Typography>
-                </Box>
-                <Box display="flex" alignItems="center" mb={2}>
-                <Avatar sx={{ bgcolor: 'red', marginRight: 2 }}>D</Avatar>
-                <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                  Good Reviews
-                </Typography>
-                </Box>    
-                <Box display="flex" alignItems="center" mb={2}>
-                <Avatar sx={{ bgcolor: 'orange', marginRight: 2 }}>E</Avatar>
-                <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                  New Products Added
-                </Typography>
-                </Box> 
-            </Box>
-          </Paper>
-        </Grid>
-      </Grid>
+      <Grid container spacing={3} justifyContent="center">
+  {cardData.map((card, index) => (
+    <Grid item key={index} xs={12} sm={6} md={4}>
+      <Card
+        sx={{
+          height: '100%',
+          width: 350,
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: 350,
+          boxShadow: 3,
+                transition: 'transform 0.3s ease',
+                '&:hover': {
+                  transform: 'scale(1.05)',
+                  boxShadow: 6,
+        }}}
+      >
+        <CardMedia
+          component="img"
+          image={card.image}
+          alt={card.title}
+          sx={{
+            height: 400,
+            width: '100%',
+            objectFit: 'cover',
+          }}
+        />
+        <CardContent sx={{ flexGrow: 1 }}>
+          <Typography sx={{ml:1}} variant="h6" gutterBottom>
+            {card.title}
+          </Typography>
+          <Button sx={{fontSize: 14}}>Explore more</Button>
+        </CardContent>
+      </Card>
     </Grid>
+  ))}
+</Grid>
+
     </Layout>
   );
 }

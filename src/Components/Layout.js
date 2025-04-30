@@ -1,26 +1,29 @@
 import { AppBar, Toolbar, Typography, IconButton, Drawer, List, ListItem, ListItemText,
-  Box, Badge, Button, Divider, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, ListItemIcon
+  Box, Badge, Button, Divider, Dialog, DialogTitle, DialogContent, DialogContentText,
+  DialogActions, ListItemIcon, Grid
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useCart } from '../Context/Cartcontext';
-import logo from '../Assets/images/shopping-bag.png';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import CategoryIcon from '@mui/icons-material/Category';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useCart } from '../Context/Cartcontext';
+import logo from '../Assets/images/shopping-bag.png';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 
 function Layout({ children }) {
   const [open, setOpen] = useState(false);
   const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
-
-
   const { cartQuantity, isLoggedIn, logout, user, wishlistItems } = useCart();
   const navigate = useNavigate();
 
@@ -35,7 +38,7 @@ function Layout({ children }) {
   const handleConfirmLogout = () => {
     setLogoutDialogOpen(false);
     logout();
-    navigate("/products")
+    navigate("/products");
   };
 
   const handleCancelLogout = () => {
@@ -43,13 +46,13 @@ function Layout({ children }) {
   };
 
   const navItems = [
-    { text: "Dashboard", path: "/dashboard", icon: <DashboardIcon />},
+    { text: "Dashboard", path: "/dashboard", icon: <DashboardIcon /> },
     { text: "Products", path: "/products", icon: <StorefrontIcon /> },
     { text: "Categories", path: "/categories", icon: <CategoryIcon /> },
   ];
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <AppBar position="fixed">
         <Toolbar>
           <IconButton color="inherit" edge="start" onClick={toggleDrawer}>
@@ -59,11 +62,7 @@ function Layout({ children }) {
             component="img"
             src={logo}
             alt="Logo"
-            sx={{
-              height: 40,
-              ml: 1,
-              mr: 1,
-            }}
+            sx={{ height: 40, ml: 1, mr: 1 }}
           />
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             E-Shop
@@ -78,17 +77,12 @@ function Layout({ children }) {
               <ShoppingCartIcon />
             </Badge>
           </IconButton>
-
           {isLoggedIn ? (
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Typography sx={{ mr:2 , ml: 2 }}>
+              <Typography sx={{ mr: 2, ml: 2 }}>
                 Welcome, {user.name}
               </Typography>
-              <Button
-                color="inherit"
-                onClick={handleLogoutClick}
-                endIcon={<LogoutIcon />}
-              >
+              <Button color="inherit" onClick={handleLogoutClick} endIcon={<LogoutIcon />}>
                 Logout
               </Button>
             </Box>
@@ -106,10 +100,11 @@ function Layout({ children }) {
       </AppBar>
 
       <Drawer anchor="left" open={open} onClose={toggleDrawer}>
-        <List sx={{ width: 250, cursor: 'pointer'}}>
-          <IconButton onClick={toggleDrawer} sx={{ ml: 25}}
-          ><ArrowBackIosNewIcon/></IconButton>
-          <Divider sx={{ mt: 1 }}/>
+        <List sx={{ width: 250, cursor: 'pointer' }}>
+          <IconButton onClick={toggleDrawer} sx={{ ml: 25 }}>
+            <ArrowBackIosNewIcon />
+          </IconButton>
+          <Divider sx={{ mt: 1 }} />
           {navItems.map((item, index) => (
             <ListItem
               button
@@ -119,7 +114,9 @@ function Layout({ children }) {
                 setOpen(false);
               }}
             >
-              {item.icon && <ListItemIcon sx={{ minWidth: 36 }}>{item.icon}</ListItemIcon>}
+              {item.icon && (
+                <ListItemIcon sx={{ minWidth: 36 }}>{item.icon}</ListItemIcon>
+              )}
               <ListItemText primary={item.text} />
             </ListItem>
           ))}
@@ -151,6 +148,92 @@ function Layout({ children }) {
           </Button>
         </DialogActions>
       </Dialog>
+
+      <Box component="footer" sx={{ bgcolor: 'primary.main', color: 'white', py: 4, mt: 4 }}>
+        <Box sx={{ maxWidth: 1200, mx: 'auto', px: 3 }}>
+          <Grid container spacing={4}>
+            <Grid item xs={12} sm={4}>
+              <Typography variant="h6" gutterBottom>
+                E-Shop
+              </Typography>
+              <Typography variant="body2">
+                Your one-stop shop for all things fashion, electronics, and more.
+              </Typography>
+            </Grid>
+
+            <Grid item xs={12} sm={4} sx={{ml:8}}>
+              <Typography variant="h6" gutterBottom>
+                Quick Links
+              </Typography>
+              <Typography variant="body2" sx={{ cursor: 'pointer' }} onClick={() => navigate('/dashboard')}>
+                Dashboard
+              </Typography>
+              <Typography variant="body2" sx={{ cursor: 'pointer' }} onClick={() => navigate('/products')}>
+                Products
+              </Typography>
+              <Typography variant="body2" sx={{ cursor: 'pointer' }} onClick={() => navigate('/categories')}>
+                Categories
+              </Typography>
+            </Grid>
+
+            <Grid item xs={12} sm={4} sx={{ml:9}}>
+              <Typography variant="h6" gutterBottom>
+                Contact Us
+              </Typography>
+              <Typography variant="body2">Email: support@eshop.com</Typography>
+              <Typography variant="body2">Phone: +91 9876543210</Typography>
+            </Grid>
+
+        <Grid item xs={12} sm={4} sx={{ml:9}}>
+         <Typography variant="h6" gutterBottom>
+         Follow Us
+         </Typography>
+         <Box sx={{ display: 'flex', gap: 2 }}>
+         <IconButton
+         component="a"
+         href="https://facebook.com"
+         target="_blank"
+         rel="noopener noreferrer"
+         sx={{ color: 'white' }}
+          >
+          <FacebookIcon />
+          </IconButton>
+          <IconButton
+          component="a"
+          href="https://twitter.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          sx={{ color: 'white' }}
+          >
+          <TwitterIcon />
+          </IconButton>
+          <IconButton
+          component="a"
+          href="https://instagram.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          sx={{ color: 'white' }}
+           >
+          <InstagramIcon />
+          </IconButton>
+          <IconButton
+           component="a"
+           href="https://linkedin.com"
+           target="_blank"
+           rel="noopener noreferrer"
+           sx={{ color: 'white' }}
+            >
+           <LinkedInIcon />
+           </IconButton>
+           </Box>
+          </Grid>
+          </Grid>
+          <Divider sx={{ my: 3, borderColor: 'rgba(255,255,255,0.3)' }} />
+          <Typography variant="body2" align="center">
+            &copy; {new Date().getFullYear()} E-Shop. All rights reserved.
+          </Typography>
+        </Box>
+      </Box>
     </Box>
   );
 }
