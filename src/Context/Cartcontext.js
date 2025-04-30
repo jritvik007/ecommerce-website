@@ -44,6 +44,11 @@ export function CartProvider({ children }) {
   }, [wishlistItems]);
 
   const addToWishlist = (product) => {
+    if (!isLoggedIn) {
+      showSnackbar('Please login first!');
+      return;
+    }
+    
     if (!wishlistItems.find((item) => item.id === product.id)) {
       setWishlistItems((prev) => [...prev, product]);
       showSnackbar('Added to Wishlist!');
