@@ -20,7 +20,8 @@ function Layout({ children }) {
   const [open, setOpen] = useState(false);
   const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
 
-  const { cartQuantity, isLoggedIn, logout, user } = useCart();
+
+  const { cartQuantity, isLoggedIn, logout, user, wishlistItems } = useCart();
   const navigate = useNavigate();
 
   const toggleDrawer = () => {
@@ -42,7 +43,7 @@ function Layout({ children }) {
   };
 
   const navItems = [
-    { text: "Dashboard", path: "/", icon: <DashboardIcon />},
+    { text: "Dashboard", path: "/dashboard", icon: <DashboardIcon />},
     { text: "Products", path: "/products", icon: <StorefrontIcon /> },
     { text: "Categories", path: "/categories", icon: <CategoryIcon /> },
   ];
@@ -67,8 +68,8 @@ function Layout({ children }) {
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             E-Shop
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={0} color="error">
+          <IconButton onClick={() => navigate('/wishlist')} color="inherit">
+            <Badge badgeContent={wishlistItems.length} color="error">
               <FavoriteIcon />
             </Badge>
           </IconButton>

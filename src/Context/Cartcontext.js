@@ -12,6 +12,10 @@ export function CartProvider({ children }) {
   const [snackbar, setSnackbar] = useState({ open: false, message: '' });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
+  const [wishlistItems, setWishlistItems] = useState(() => {
+    const storedWishlist = localStorage.getItem('wishlist');
+    return storedWishlist ? JSON.parse(storedWishlist) : [];
+  });
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('user'));
@@ -34,6 +38,26 @@ export function CartProvider({ children }) {
       localStorage.setItem('userCarts', JSON.stringify(allCarts));
     }
   }, [cartItems, isLoggedIn, user]);
+
+  useEffect(() => {
+    localStorage.setItem('wishlist', JSON.stringify(wishlistItems));
+  }, [wishlistItems]);
+
+  const addToWishlist = (product) => {
+    if (!wishlistItems.find((item) => item.id === product.id)) {
+      setWishlistItems((prev) => [...prev, product]);
+      showSnackbar('Added to Wishlist!');
+    }
+  };
+  
+  const removeFromWishlist = (id) => {
+    setWishlistItems((prev) => prev.filter((item) => item.id !== id));
+    showSnackbar('Removed from Wishlist!');
+  };
+  
+  const isInWishlist = (id) => {
+    return wishlistItems.some((item) => item.id === id);
+  };
 
   const showSnackbar = (message) => {
     setSnackbar({ open: true, message });
@@ -105,7 +129,7 @@ export function CartProvider({ children }) {
   return (
     <Cartcontext.Provider value={{
       cartItems, addToCart, removeFromCart, login, logout,
-      isLoggedIn, user, cartQuantity
+      isLoggedIn, user, cartQuantity,wishlistItems, addToWishlist, removeFromWishlist, isInWishlist
     }}>
       {children}
       <Snackbar
