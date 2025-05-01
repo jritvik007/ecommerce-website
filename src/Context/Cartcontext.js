@@ -15,8 +15,13 @@ export function CartProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
   const [wishlistItems, setWishlistItems] = useState(() => {
-    const storedWishlist = localStorage.getItem('wishlist');
-    return storedWishlist ? JSON.parse(storedWishlist) : [];
+  const storedIsLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn'));
+    if (storedIsLoggedIn) {
+      const storedWishlist = localStorage.getItem('wishlist');
+      return storedWishlist ? JSON.parse(storedWishlist) : [];
+    } else {
+      return [];
+    }
   });
 
   useEffect(() => {
@@ -42,26 +47,30 @@ export function CartProvider({ children }) {
   }, [cartItems, isLoggedIn, user]);
 
   useEffect(() => {
-    localStorage.setItem('wishlist', JSON.stringify(wishlistItems));
-  }, [wishlistItems]);
+    if (isLoggedIn) {
+      localStorage.setItem('wishlist', JSON.stringify(wishlistItems));
+    } else {
+      localStorage.removeItem('wishlist');
+    }
+  }, [wishlistItems, isLoggedIn]);
 
   const addToWishlist = (product) => {
     if (!isLoggedIn) {
-      navigate("/login")
+      navigate("/login");
       return;
     }
-    
+
     if (!wishlistItems.find((item) => item.id === product.id)) {
       setWishlistItems((prev) => [...prev, product]);
       showSnackbar('Added to Wishlist!');
     }
   };
-  
+
   const removeFromWishlist = (id) => {
     setWishlistItems((prev) => prev.filter((item) => item.id !== id));
     showSnackbar('Removed from Wishlist!');
   };
-  
+
   const isInWishlist = (id) => {
     return wishlistItems.some((item) => item.id === id);
   };
@@ -91,14 +100,16 @@ export function CartProvider({ children }) {
     setIsLoggedIn(false);
     setUser(null);
     setCartItems([]);
+    setWishlistItems([]);
     localStorage.removeItem('user');
     localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('wishlist'); 
     showSnackbar('Logged out successfully!');
   };
 
   const addToCart = (product) => {
     if (!isLoggedIn) {
-      navigate("/login")
+      navigate("/login");
       return;
     }
     setCartItems((prevItems) => {
@@ -136,7 +147,7 @@ export function CartProvider({ children }) {
   return (
     <Cartcontext.Provider value={{
       cartItems, addToCart, removeFromCart, login, logout,
-      isLoggedIn, user, cartQuantity,wishlistItems, addToWishlist, removeFromWishlist, isInWishlist
+      isLoggedIn, user, cartQuantity, wishlistItems, addToWishlist, removeFromWishlist, isInWishlist
     }}>
       {children}
       <Snackbar
