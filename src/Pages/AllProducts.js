@@ -1,6 +1,9 @@
 import Layout from '../Components/Layout';
 import { useEffect, useState } from 'react';
-import { Grid, Card, CardMedia, CardContent, Typography, Button, CardActions, TextField, Box, useMediaQuery } from '@mui/material';
+import {
+  Grid, Card, CardMedia, CardContent, Typography, Button, CardActions,
+  TextField, Box, useMediaQuery, Select, MenuItem, InputLabel, FormControl
+} from '@mui/material';
 import { useCart } from '../Context/Cartcontext';
 import Checkbox from '@mui/material/Checkbox';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
@@ -10,7 +13,9 @@ import Stack from '@mui/material/Stack';
 
 function AllProducts() {
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('All');
   const { addToCart, addToWishlist, removeFromWishlist, isInWishlist } = useCart();
   const isSmallScreen = useMediaQuery('(max-width:600px)');
 
@@ -18,10 +23,15 @@ function AllProducts() {
     fetch('https://fakestoreapi.com/products')
       .then(res => res.json())
       .then(data => setProducts(data));
+
+    fetch('https://fakestoreapi.com/products/categories')
+      .then(res => res.json())
+      .then(data => setCategories(['All', ...data]));
   }, []);
 
   const filteredProducts = products.filter(product =>
-    product.title.toLowerCase().includes(searchTerm.toLowerCase())
+    product.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+    (selectedCategory === 'All' || product.category === selectedCategory)
   );
 
   return (
@@ -30,13 +40,40 @@ function AllProducts() {
         <Typography color="primary" variant="h4" gutterBottom sx={{ fontWeight: 'bold' }}>
           Products
         </Typography>
-        <TextField
-          variant="outlined"
-          placeholder="Search products..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          sx={{ width: isSmallScreen ? '80%' : '40%' }}
-        />
+
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            gap: 1,
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}
+        >
+          <FormControl sx={{ width: isSmallScreen ? '30%' : '10%'}}>
+            <InputLabel id="category-select-label">Filter by Category</InputLabel>
+            <Select
+              labelId="category-select-label"
+              id="category-select"
+              value={selectedCategory}
+              label="Filter by Category"
+              onChange={(e) => setSelectedCategory(e.target.value)}
+            >
+              {categories.map((category) => (
+                <MenuItem key={category} value={category}>
+                  {category.charAt(0).toUpperCase() + category.slice(1)}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <TextField
+            variant="outlined"
+            placeholder="Search products..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            sx={{ width: isSmallScreen ? '60%' : '40%' }}
+          />
+        </Box>
       </Box>
 
       <Grid container spacing={3} justifyContent="center">
@@ -66,11 +103,11 @@ function AllProducts() {
                   maxHeight: '200px',
                   width: 250,
                   p: 2,
-                  display:'block',
+                  display: 'block',
                   margin: '0 auto',
                 }}
               />
-              <CardContent sx={{ flexGrow: 1, textAlign: 'center',  paddingBottom: '16px'}}>
+              <CardContent sx={{ flexGrow: 1, textAlign: 'center', paddingBottom: '16px' }}>
                 <Typography gutterBottom variant="h6" component="div" noWrap>
                   {product.title}
                 </Typography>
@@ -78,19 +115,19 @@ function AllProducts() {
                   ${product.price}
                 </Typography>
                 <Stack spacing={1} alignItems="center">
-                <Rating name="half-rating-read" value={product.rating.rate} precision={0.5} readOnly />
+                  <Rating name="half-rating-read" value={product.rating.rate} precision={0.5} readOnly />
                 </Stack>
               </CardContent>
-              <CardActions sx={{ justifyContent: 'center', paddingTop: 0 , ml: 6}}>
-              <Button
-                    size="small"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      addToCart(product);
-                    }}
-                  >
-                    Add to Cart
-                  </Button>
+              <CardActions sx={{ justifyContent: 'center', paddingTop: 0, ml: 6 }}>
+                <Button
+                  size="small"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    addToCart(product);
+                  }}
+                >
+                  Add to Cart
+                </Button>
                 <Checkbox
                   color="error"
                   icon={<FavoriteBorder />}

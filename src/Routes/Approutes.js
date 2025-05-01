@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Login from '../Pages/Login';
 import Register from '../Pages/Register';
 import Dashboard from '../Pages/Dashboard';
@@ -12,7 +12,6 @@ import Wishlist from '../Pages/Wishlist';
 
 function Approutes() {
   return (
-    <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -25,7 +24,6 @@ function Approutes() {
         <Route path="*" element={<NotFound />} />
         <Route path="/wishlist" element={<Wishlist />} />
       </Routes>
-    </BrowserRouter>
   );
 }
 

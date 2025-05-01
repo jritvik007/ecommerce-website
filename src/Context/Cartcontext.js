@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { Snackbar } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const Cartcontext = createContext();
 
@@ -8,6 +9,7 @@ export function useCart() {
 }
 
 export function CartProvider({ children }) {
+  const navigate = useNavigate();
   const [cartItems, setCartItems] = useState([]);
   const [snackbar, setSnackbar] = useState({ open: false, message: '' });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -45,7 +47,7 @@ export function CartProvider({ children }) {
 
   const addToWishlist = (product) => {
     if (!isLoggedIn) {
-      showSnackbar('Please login first!');
+      navigate("/login")
       return;
     }
     
@@ -96,7 +98,7 @@ export function CartProvider({ children }) {
 
   const addToCart = (product) => {
     if (!isLoggedIn) {
-      showSnackbar('Please login first!');
+      navigate("/login")
       return;
     }
     setCartItems((prevItems) => {
