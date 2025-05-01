@@ -2,7 +2,8 @@ import Layout from '../Components/Layout';
 import { useEffect, useState } from 'react';
 import {
   Grid, Card, CardMedia, CardContent, Typography, Button, CardActions,
-  TextField, Box, useMediaQuery, Select, MenuItem, InputLabel, FormControl
+  TextField, Box, useMediaQuery, Select, MenuItem, InputLabel, FormControl,
+  Dialog, DialogActions, DialogContent, DialogTitle
 } from '@mui/material';
 import { useCart } from '../Context/Cartcontext';
 import Checkbox from '@mui/material/Checkbox';
@@ -16,6 +17,7 @@ function AllProducts() {
   const [categories, setCategories] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedProduct, setSelectedProduct] = useState(null); 
   const { addToCart, addToWishlist, removeFromWishlist, isInWishlist } = useCart();
   const isSmallScreen = useMediaQuery('(max-width:600px)');
 
@@ -34,6 +36,14 @@ function AllProducts() {
     (selectedCategory === 'All' || product.category === selectedCategory)
   );
 
+  const handleProductClick = (product) => {
+    setSelectedProduct(product);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedProduct(null);
+  };
+
   return (
     <Layout>
       <Box sx={{ textAlign: 'center', mb: 4 }}>
@@ -50,7 +60,7 @@ function AllProducts() {
             alignItems: 'center'
           }}
         >
-          <FormControl sx={{ width: isSmallScreen ? '30%' : '10%'}}>
+          <FormControl sx={{ width: isSmallScreen ? '30%' : '10%' }}>
             <InputLabel id="category-select-label">Filter by Category</InputLabel>
             <Select
               labelId="category-select-label"
@@ -90,8 +100,10 @@ function AllProducts() {
                 '&:hover': {
                   transform: 'scale(1.05)',
                   boxShadow: 6,
+                  cursor: 'pointer'
                 },
               }}
+              onClick={() => handleProductClick(product)}
             >
               <CardMedia
                 component="img"
@@ -144,6 +156,24 @@ function AllProducts() {
           </Grid>
         ))}
       </Grid>
+
+      <Dialog open={Boolean(selectedProduct)} onClose={handleCloseModal}>
+        {selectedProduct && (
+          <>
+            <DialogTitle>{selectedProduct.title}</DialogTitle>
+            <DialogContent>
+              <Typography variant="body1">{selectedProduct.description}</Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
+                Price: ${selectedProduct.price}
+              </Typography>
+              <Rating name="read-only" value={selectedProduct.rating.rate} precision={0.5} readOnly sx={{mt:2}}/>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleCloseModal}>Close</Button>
+            </DialogActions>
+          </>
+        )}
+      </Dialog>
     </Layout>
   );
 }

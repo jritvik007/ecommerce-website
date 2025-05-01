@@ -49,7 +49,7 @@ const mobileImages = [
 const cardData = [
   { title: 'Electronics | Up to 60% off', image: electronics2, category: 'electronics' },
   { title: "Men's Fashion | 50-80% off", image: mens2, category: "men's clothing" },
-  { title: "Women's Fashion | 50-80% off", image: womens2, category: "women's clothing" },
+  { title: "Women's Fashion | 50% off", image: womens2, category: "women's clothing" },
   { title: 'Jewellery | 25% off', image: jewellery2, category: 'jewelery' },
   { title: 'Shoes | Flat 60% off', image: shoes, category: 'shoes' },
   { title: 'Books | Buy 1 Get 1 Free', image: book, category: 'books' },
