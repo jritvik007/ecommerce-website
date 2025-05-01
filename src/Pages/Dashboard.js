@@ -108,7 +108,7 @@ function Dashboard() {
             <Card
               sx={{
                 height: '100%',
-                width: 350,
+                width: 310,
                 display: 'flex',
                 flexDirection: 'column',
                 minHeight: 350,
