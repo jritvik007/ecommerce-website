@@ -102,8 +102,7 @@ function AllProducts() {
                   boxShadow: 6,
                   cursor: 'pointer'
                 },
-              }}
-              onClick={() => handleProductClick(product)}
+              }}    
             >
               <CardMedia
                 component="img"
@@ -118,6 +117,7 @@ function AllProducts() {
                   display: 'block',
                   margin: '0 auto',
                 }}
+                onClick={() => handleProductClick(product)}
               />
               <CardContent sx={{ flexGrow: 1, textAlign: 'center', paddingBottom: '16px' }}>
                 <Typography gutterBottom variant="h6" component="div" noWrap>
